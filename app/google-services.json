@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "101603676767",
-    "project_id": "chatapp-c71b6",
-    "storage_bucket": "chatapp-c71b6.appspot.com"
+    "project_number": "457884622723",
+    "project_id": "chatapp2-35a43",
+    "storage_bucket": "chatapp2-35a43.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:101603676767:android:ff623eb89f2243be2441ea",
+        "mobilesdk_app_id": "1:457884622723:android:cc2a3dc68544924fe160b6",
         "android_client_info": {
-          "package_name": "com.bignerdranch.android.chatapp"
+          "package_name": "com.bignerdranch.android.chatapp2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "101603676767-k2h1m2216os1d24kirelat693g5fpvd3.apps.googleusercontent.com",
+          "client_id": "457884622723-gmuffgjafc3ak6vscriu48tsetm1s2vc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCgeYVayyBGi5ZYKCDceF9gNIDuuNrYAF8"
+          "current_key": "AIzaSyAsZFKJsjM6eDrBDjfQSgYQNcEzhZvPhos"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "101603676767-k2h1m2216os1d24kirelat693g5fpvd3.apps.googleusercontent.com",
+              "client_id": "457884622723-gmuffgjafc3ak6vscriu48tsetm1s2vc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
