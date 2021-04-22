@@ -1,5 +1,6 @@
 package com.bignerdranch.android.chatapp2
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -19,6 +20,9 @@ class LoginActivity: AppCompatActivity() {
         login_button.setOnClickListener {
             //Log.d("Login", "Attempt login with email/pw: $email/***")
             login()
+
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
 
         login_backToRegistration.setOnClickListener {

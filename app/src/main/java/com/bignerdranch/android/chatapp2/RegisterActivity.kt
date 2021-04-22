@@ -36,6 +36,8 @@ class RegisterActivity : AppCompatActivity() {
         register_button.setOnClickListener {
             createUser()
 
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         // checks if the 'already have account' label is clicked and takes them to login activity
