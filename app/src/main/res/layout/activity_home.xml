@@ -5,6 +5,14 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".LatestMessagesActivity">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,9 +28,9 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/home_profilePicture"
                 android:layout_width="32dp"
-                android:layout_height="32dp">
+                android:layout_height="32dp"
+                android:tint="@android:color/white"/>
 
-            </de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
                 android:id="@+id/home_username"
@@ -35,6 +43,20 @@
                 android:layout_marginLeft="26dp">
 
             </TextView>
+
+            <TextView
+                android:id="@+id/home_sign_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sign out"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:layout_marginLeft="150dp"
+                android:onClick="onClick"
+                android:clickable="true">
+            </TextView>
+
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -60,6 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appBarLayout" />
+
 
 
 </RelativeLayout>
