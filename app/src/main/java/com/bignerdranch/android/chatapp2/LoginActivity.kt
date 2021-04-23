@@ -20,9 +20,6 @@ class LoginActivity: AppCompatActivity() {
         login_button.setOnClickListener {
             //Log.d("Login", "Attempt login with email/pw: $email/***")
             login()
-
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
         }
 
         login_backToRegistration.setOnClickListener {
@@ -46,6 +43,8 @@ class LoginActivity: AppCompatActivity() {
                             // if successful
                             // Log.d(TAG, "Login successfully")
                             Toast.makeText(this, "Logged in successfully!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, HomeActivity::class.java)
+                            startActivity(intent)
                         }
                         .addOnFailureListener {
                             Toast.makeText(this, "Failed to login: ${it.message}", Toast.LENGTH_LONG).show()

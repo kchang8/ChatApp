@@ -2,6 +2,7 @@ package com.bignerdranch.android.chatapp2
 
 import android.app.Activity
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -137,6 +138,10 @@ class RegisterActivity : AppCompatActivity() {
         ref.setValue(user)
                 .addOnSuccessListener {
                     Log.d(TAG, "Saved the user to firebase database")
+
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
                 }
                 .addOnFailureListener {
                     Log.d(TAG, "Failed to save user to firebase db: ${it.message}")
