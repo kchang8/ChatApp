@@ -8,7 +8,7 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager):
         FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)  {
 
     private val mFragmentList = ArrayList<Fragment>()
-    private val mFragmentTitleList = ArrayList<String>()
+    //private val mFragmentTitleList = ArrayList<String>()
 
     override fun getItem(position: Int): Fragment {
         return mFragmentList[position]
@@ -18,13 +18,13 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager):
         return mFragmentList.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return mFragmentTitleList[position]
-    }
+//    override fun getPageTitle(position: Int): CharSequence? {
+//        return mFragmentTitleList[position]
+//    }
 
-    fun addFragment(fragment: Fragment, title: String) {
+    fun addFragment(fragment: Fragment) {
         mFragmentList.add(fragment)
-        mFragmentTitleList.add(title)
+        //mFragmentTitleList.add(title)
     }
 
 
