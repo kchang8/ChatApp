@@ -1,4 +1,4 @@
-package com.bignerdranch.android.chatapp2.fragments.adapters
+package com.bignerdranch.android.chatapp2.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater

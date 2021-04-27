@@ -6,6 +6,8 @@ class Users {
     private var uid: String = ""
     private var username: String = ""
 
+    constructor()
+
     constructor(profileImageUrl: String, uid: String, username: String) {
         this.profileImageUrl = profileImageUrl
         this.uid = uid
