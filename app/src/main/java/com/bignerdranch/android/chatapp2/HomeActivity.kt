@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bignerdranch.android.chatapp2.fragments.ChatFragment
 import com.bignerdranch.android.chatapp2.fragments.FeedFragment
+import com.bignerdranch.android.chatapp2.fragments.SearchFragment
 import com.bignerdranch.android.chatapp2.fragments.SettingsFragment
 import com.bignerdranch.android.chatapp2.fragments.adapters.ViewPagerAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -78,15 +79,17 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setUpTabs() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ChatFragment(), "Chats")
-        adapter.addFragment(FeedFragment(), "Feed")
-        adapter.addFragment(SettingsFragment(), "Settings")
+        adapter.addFragment(ChatFragment())
+        adapter.addFragment(SearchFragment())
+        adapter.addFragment(FeedFragment())
+        adapter.addFragment(SettingsFragment())
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
         tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_chat_24)
-        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_feed_24)
-        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_settings_24)
+        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_search_24)
+        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_feed_24)
+        tabs.getTabAt(3)!!.setIcon(R.drawable.ic_baseline_settings_24)
     }
 
 }
