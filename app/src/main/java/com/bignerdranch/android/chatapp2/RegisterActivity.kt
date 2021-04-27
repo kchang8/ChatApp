@@ -133,7 +133,7 @@ class RegisterActivity : AppCompatActivity() {
         val uid = auth.uid ?: ""
         val ref = db.getReference("/users/$uid")
 
-        val user = User(uid, register_username.text.toString(), profileImageUrl)
+        val user = User(uid, register_username.text.toString().toLowerCase(), profileImageUrl)
 
         ref.setValue(user)
                 .addOnSuccessListener {
