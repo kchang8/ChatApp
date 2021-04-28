@@ -56,7 +56,7 @@ class SearchFragment : Fragment()
         recyclerView?.layoutManager = LinearLayoutManager(context)
 
         mUser = ArrayList()
-        userAdapter = context?.let { UserAdapter(it, mUser as ArrayList<Users>, true) }
+        userAdapter = context?.let { UserAdapter(it, mUser as ArrayList<Users>, true)}
         recyclerView?.adapter = userAdapter
 
         view.search_searchBar.addTextChangedListener(object: TextWatcher
@@ -90,16 +90,7 @@ class SearchFragment : Fragment()
         return view
     }
 
-//    private fun getUserList()
-//    {
-//        val input = search_searchBar.text.toString()
-//        val ref = db.reference.child("users")
-//        ref.orderByChild("username").startAt(input).endAt(input + "\uf8ff")
-//        Log.d(SEARCH_TAG, "List of users: ${ref}")
-//    }
 
-//
-//
     private fun retrieveUsers()
     {
         val usersRef = db.reference.child("users")

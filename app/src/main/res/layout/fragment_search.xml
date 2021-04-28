@@ -6,53 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SearchFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <EditText
+        android:id="@+id/search_searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/search_appBarLayout"
-        android:background="@android:color/white" >
+        android:layout_margin="6dp"
+        android:hint="Search users...">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/search_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:background="@drawable/button_black_background">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/search_searchIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_search_24"/>
-
-                <EditText
-                    android:id="@+id/search_searchBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="15dp"
-                    android:textColor="@android:color/black"
-                    android:hint="Search..."
-                    android:layout_toEndOf="@id/search_searchIcon" />
-
-            </RelativeLayout>
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </EditText>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_below="@+id/search_appBarLayout">
+        android:layout_below="@+id/search_searchBar">
 
     </androidx.recyclerview.widget.RecyclerView>
 
