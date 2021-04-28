@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
@@ -32,14 +33,14 @@ class UserAdapter
         val user = mUser[position]
 
         holder.searchUsernameTextView.text = user.getUsername()
-        Picasso.get().load(user.getImageURL()).placeholder(R.drawable.profile_icon).into(holder.searchProfileImage)
+        //Picasso.get().load(user.getImageURL()).placeholder(R.drawable.ic_baseline_person_24).into(holder.searchProfileImage)
     }
 
     class ViewHolder (@NonNull itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        var searchUsernameTextView: TextView = itemView.findViewById(R.id.search_username)
-        var searchProfileImage: CircleImageView = itemView.findViewById(R.id.search_profileImage)
-        var searchAddButton: Button = itemView.findViewById(R.id.search_addButton)
+        var searchUsernameTextView: TextView = itemView.findViewById(R.id.searchItem_username)
+        var searchProfileImage: CircleImageView = itemView.findViewById(R.id.searchItem_profileImage)
+        var searchAddButton: ImageButton = itemView.findViewById(R.id.searchItem_addButton)
 
     }
 
