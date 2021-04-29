@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.chatapp2.R
@@ -52,14 +53,28 @@ class UserAdapter
 
         // add button click listener
         holder.searchAddButton.setOnClickListener(){
-            Log.d(USER_ADPT_TAG, "now adding friend")
             var addUser = holder.searchUsernameTextView.text.toString()
+
+            //this for loop is bad code yiiiikes
             for (user in mUser){
                 if (user.getUsername() == addUser){
                     addUser = user.getUID()!!
                 }
             }
-            val setUser = db.reference.child("users").child(auth.uid.toString()).child("friendList").child(addUser).setValue(false)
+
+            //gets node at which the addUser should be at
+            val friendList = db.reference.child("users").child(addUser).child("friendList").child(auth.uid.toString()).get()
+            friendList.addOnSuccessListener {
+                if (it.exists()){
+                    Log.d("friendAlreadyAdded", "You already made a friend request ")
+                }
+                //writes to targeted user's information
+                else{
+                    Log.d("addingFriend", "now adding friend")
+                    db.reference.child("users").child(addUser.toString()).child("friendList").child(auth.uid.toString()).setValue(false)
+                }
+            }.addOnFailureListener {
+            }
         }
 
         // displaying user profile pictures
