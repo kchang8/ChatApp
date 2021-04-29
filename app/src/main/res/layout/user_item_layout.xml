@@ -1,59 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/searchItem_profileImage"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:src="@drawable/ic_baseline_person_24">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_baseline_person_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </de.hdodenhof.circleimageview.CircleImageView>
+
+    <!--shows the latest message user username-->
+<!--    <TextView-->
+<!--        android:id="@+id/searchItem_lastMessage"-->
+<!--        android:layout_below="@id/searchItem_username"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_toEndOf="@+id/searchItem_profileImage"-->
+<!--        android:layout_marginTop="14dp"-->
+<!--        android:layout_marginStart = "20dp"-->
+<!--        android:padding="6dp"-->
+<!--        android:textSize="19sp"-->
+<!--        android:maxLines="1"-->
+<!--        android:textColor="@color/teal_700">-->
+
+<!--    </TextView>-->
 
     <TextView
         android:id="@+id/searchItem_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="username"
-        android:layout_toRightOf="@+id/searchItem_profileImage"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft = "12dp"
-        android:textSize="19sp">
-
-    </TextView>
-
-    <!--shows the latest message user username-->
-    <TextView
-        android:id="@+id/searchItem_lastMessage"
-        android:layout_below="@id/searchItem_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/searchItem_profileImage"
-        android:layout_marginTop="14dp"
-        android:layout_marginLeft = "20dp"
-        android:padding="6dp"
         android:textSize="19sp"
-        android:maxLines="1"
-        android:textColor="@color/teal_700">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/searchItem_addButton"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/searchItem_profileImage"
+        app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/searchItem_addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="186dp"
-        android:layout_marginLeft="186dp"
-        android:layout_centerInParent="true"
-        android:background="@color/teal_200"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:layout_toEndOf="@+id/searchItem_username"
-        android:src="@drawable/ic_baseline_add_24">
+        android:src="@drawable/ic_baseline_add_circle_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintTop_toTopOf="parent">
 
-    </ImageButton>
+    </ImageView>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
