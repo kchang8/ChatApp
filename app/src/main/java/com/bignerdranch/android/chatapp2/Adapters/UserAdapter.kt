@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +39,7 @@ class UserAdapter
     {
         var searchUsernameTextView: TextView = itemView.findViewById(R.id.searchItem_username)
         var searchProfileImage: CircleImageView = itemView.findViewById(R.id.searchItem_profileImage)
-        var searchAddButton: ImageButton = itemView.findViewById(R.id.searchItem_addButton)
+        var searchAddButton: ImageView = itemView.findViewById(R.id.searchItem_addButton)
 
     }
 
