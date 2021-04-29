@@ -1,6 +1,7 @@
 package com.bignerdranch.android.chatapp2.fragments
 
 import android.os.Bundle
+import android.renderscript.Sampler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,15 +14,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.chatapp2.Adapters.UserAdapter
 import com.bignerdranch.android.chatapp2.R
 import com.bignerdranch.android.chatapp2.modelClasses.Users
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import kotlinx.android.synthetic.main.user_item_layout.view.*
 
 
 const val SEARCH_TAG = "SearchFragment"
+
+data class friendList(
+        var uid: String? = "",
+        var friends: MutableMap<String, Boolean> = HashMap()
+)
 
 class SearchFragment : Fragment()
 {
@@ -59,6 +67,7 @@ class SearchFragment : Fragment()
         userAdapter = context?.let { UserAdapter(it, mUser as ArrayList<Users>, true)}
         recyclerView?.adapter = userAdapter
 
+
         view.search_searchBar.addTextChangedListener(object: TextWatcher
         {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int)
@@ -87,7 +96,9 @@ class SearchFragment : Fragment()
             }
         })
 
+
         return view
+
     }
 
 
@@ -134,6 +145,8 @@ class SearchFragment : Fragment()
                 .startAt(input)
                 .endAt(input + "\uf8ff")
 
+        val auth = FirebaseAuth.getInstance()
+
         searchQuery.addValueEventListener(object : ValueEventListener
         {
             override fun onDataChange(dataSnapshot: DataSnapshot)
@@ -142,10 +155,12 @@ class SearchFragment : Fragment()
 
                 Log.d(SEARCH_TAG, "searching user")
 
+                val user = FirebaseAuth.getInstance()
                 for (snapshot in dataSnapshot.children)
                 {
                     val user = snapshot.getValue(Users::class.java)
-                    if (user != null)
+                    val uid = user!!.getUID()
+                    if (user != null && uid != auth.uid)
                     {
                         mUser?.add(user)
                     }
