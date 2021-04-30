@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.chatapp2.R
@@ -18,7 +17,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.user_item_layout.view.*
+import kotlinx.android.synthetic.main.search_list_item.view.*
 
 const val USER_ADPT_TAG = "UserAdapter"
 
@@ -34,7 +33,7 @@ class UserAdapter
     lateinit var auth: FirebaseAuth
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.user_item_layout, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.search_list_item, parent, false)
         return ViewHolder(view)
     }
 

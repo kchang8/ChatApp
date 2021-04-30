@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
-import kotlinx.android.synthetic.main.user_item_layout.view.*
+import kotlinx.android.synthetic.main.search_list_item.view.*
 
 
 const val SEARCH_TAG = "SearchFragment"
