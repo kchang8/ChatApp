@@ -26,11 +26,6 @@ import kotlinx.android.synthetic.main.user_item_layout.view.*
 
 const val SEARCH_TAG = "SearchFragment"
 
-data class friendList(
-        var uid: String? = "",
-        var friends: MutableMap<String, Boolean> = HashMap()
-)
-
 class SearchFragment : Fragment()
 {
     private var recyclerView: RecyclerView? = null
