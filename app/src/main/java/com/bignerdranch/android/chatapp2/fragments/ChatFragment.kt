@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_chat.view.*
 
 class ChatFragment : Fragment() {
 
@@ -33,11 +34,34 @@ class ChatFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
 
-        val chatListRef = db.reference.child("user-messages")
+        view.chats.setOnClickListener(){
+            testMessage()
+        }
 
 
 
         return view
+    }
+
+    private fun testMessage(){
+        //sends message from peter-parker to pussy slayer
+        var messageRef = db.reference.child("user-messages")
+                .child(auth.uid.toString())
+                .child("KuJUGS0hAqPBDHjYYaWDxavu2613")
+                .push()
+        val message = Message(messageRef.key.toString(), "kys pls", auth.uid.toString(), "KuJUGS0hAqPBDHjYYaWDxavu2613")
+        messageRef.setValue(message)
+        Log.d("test_message", "text message was sent to pussy slayer!")
+
+        //need to do reverse for pussy slayer
+        messageRef = db.reference.child("user-messages")
+                .child("KuJUGS0hAqPBDHjYYaWDxavu2613")
+                .child(auth.uid.toString())
+                .push()
+        messageRef.setValue(message)
+        Log.d("test_message", "pussy slayer received message!")
+
+
     }
 
 }
