@@ -34,6 +34,8 @@ class ChatFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
 
+
+        //testMessage() will lay foundation for sending messages, but still need a listenForMessages()
         view.chats.setOnClickListener(){
             testMessage()
         }
