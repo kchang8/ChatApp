@@ -35,13 +35,23 @@
 
             <TextView
                 android:id="@+id/home_username"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="username"
+<<<<<<< Updated upstream
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:layout_marginLeft="26dp">
+=======
+                android:layout_marginLeft="25dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="20sp">
+>>>>>>> Stashed changes
 
             </TextView>
 
@@ -53,7 +63,11 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
+<<<<<<< Updated upstream
                 android:layout_marginLeft="200dp">
+=======
+                android:layout_marginLeft="15dp">
+>>>>>>> Stashed changes
             </TextView>
 
 

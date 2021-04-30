@@ -10,12 +10,18 @@ import com.bignerdranch.android.chatapp2.fragments.FeedFragment
 import com.bignerdranch.android.chatapp2.fragments.SettingsFragment
 import com.bignerdranch.android.chatapp2.fragments.adapters.ViewPagerAdapter
 import com.bignerdranch.android.chatapp2.modelClasses.Users
+<<<<<<< Updated upstream
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+=======
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+>>>>>>> Stashed changes
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -25,8 +31,12 @@ class HomeActivity : AppCompatActivity() {
 
     var refUsers: DatabaseReference? = null
     var firebaseUser: FirebaseUser? = null
+<<<<<<< Updated upstream
 
 
+=======
+    
+>>>>>>> Stashed changes
     lateinit var auth: FirebaseAuth
     lateinit var db: FirebaseDatabase
 
@@ -46,22 +56,33 @@ class HomeActivity : AppCompatActivity() {
 
         refUsers!!.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(p0: DataSnapshot){
+<<<<<<< Updated upstream
 
                 p0.children.forEach{
                     Log.d("UserInfo", it.toString())
                 }
 
+=======
+>>>>>>> Stashed changes
                 if (p0.exists()){
 
                     val user: Users? = p0.getValue(Users::class.java)
 
                     home_username.text = user!!.getUsername()
+<<<<<<< Updated upstream
 
                     val imageUrl = p0.child("profileImageUrl").getValue().toString()
 
                     Picasso.get().load(imageUrl).into(home_profilePicture)
 
 
+=======
+                    
+                    val imageUrl = p0.child("profileImageUrl").getValue().toString()
+                    
+                    Picasso.get().load(imageUrl).into(home_profilePicture)
+
+>>>>>>> Stashed changes
                 }
 
             }
@@ -70,8 +91,11 @@ class HomeActivity : AppCompatActivity() {
 
             }
         })
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 
         setUpTabs()
 
