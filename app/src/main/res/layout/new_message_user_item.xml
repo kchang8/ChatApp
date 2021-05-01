@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/newMessage_profileImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <!--shows the latest message user username-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/searchItem_lastMessage"-->
+    <!--        android:layout_below="@id/searchItem_username"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_toEndOf="@+id/searchItem_profileImage"-->
+    <!--        android:layout_marginTop="14dp"-->
+    <!--        android:layout_marginStart = "20dp"-->
+    <!--        android:padding="6dp"-->
+    <!--        android:textSize="19sp"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:textColor="@color/teal_700">-->
+
+    <!--    </TextView>-->
+
+    <TextView
+        android:id="@+id/newMessage_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="username"
+        android:textSize="19sp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/newMessage_profileImage"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

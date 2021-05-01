@@ -64,6 +64,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_linearLayout"
         app:layout_constraintVertical_bias="0.183">
@@ -114,6 +115,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutUsername"
         app:layout_constraintVertical_bias="0.136">
@@ -165,6 +167,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutEmail"
         app:layout_constraintVertical_bias="0.215">
