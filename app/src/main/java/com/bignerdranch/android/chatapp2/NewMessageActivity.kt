@@ -58,13 +58,15 @@ class NewMessageActivity : AppCompatActivity() {
                 adapter.setOnItemClickListener { item, view ->
                     val intent = Intent(view.context, ChatLogActivity::class.java)
                     startActivity(intent)
+
+                    finish()
                 }
 
                 newMessage_recyclerView.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
     }
