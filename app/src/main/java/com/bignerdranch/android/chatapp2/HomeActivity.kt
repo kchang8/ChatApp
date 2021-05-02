@@ -9,16 +9,20 @@ import com.bignerdranch.android.chatapp2.fragments.FeedFragment
 import com.bignerdranch.android.chatapp2.fragments.SearchFragment
 import com.bignerdranch.android.chatapp2.fragments.ProfileFragment
 import com.bignerdranch.android.chatapp2.fragments.adapters.ViewPagerAdapter
+import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 
 const val HOME_TAG = "HomeActivity"
 
 class HomeActivity : AppCompatActivity() {
 
-//    var refUsers: DatabaseReference? = null
-//    var firebaseUser: FirebaseUser? = null
+    var refUsers: DatabaseReference? = null
+    var firebaseUser: FirebaseUser? = null
+
     lateinit var auth: FirebaseAuth
     lateinit var db: FirebaseDatabase
 
@@ -32,27 +36,29 @@ class HomeActivity : AppCompatActivity() {
         verifyUserIsLoggedIn()
 
         //Display username and provide pic
-//        firebaseUser = auth.currentUser
-//        refUsers = db.reference.child("users").child(firebaseUser!!.uid)
-//
-//        refUsers!!.addValueEventListener(object : ValueEventListener{
-//            override fun onDataChange(p0: DataSnapshot){
-//                if (p0.exists()){
-//
-//                    val user: Users? = p0.getValue(Users::class.java)
-//
-//                    home_username.text = user!!.getUsername()
-//                    // HALP
-//                    //Picasso.get().load(user.getImageURL()).into(home_profilePicture)
-//
-//                }
-//
-//            }
-//
-//            override fun onCancelled(p0: DatabaseError){
-//
-//            }
-//        })
+        firebaseUser = auth.currentUser
+        refUsers = db.reference.child("users").child(firebaseUser!!.uid)
+
+        refUsers!!.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot){
+                if (p0.exists()){
+
+                    val user: Users? = p0.getValue(Users::class.java)
+
+                    home_username.text = user!!.username
+
+                    val imageUrl = p0.child("profileImageUrl").getValue().toString()
+
+                    Picasso.get().load(imageUrl).into(home_profilePicture)
+
+                }
+
+            }
+
+            override fun onCancelled(p0: DatabaseError){
+
+            }
+        })
 
         setUpTabs()
 
