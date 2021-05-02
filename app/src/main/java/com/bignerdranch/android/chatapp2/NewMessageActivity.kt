@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.chatapp2.modelClasses.Users
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
@@ -17,12 +19,15 @@ import kotlinx.android.synthetic.main.new_message_user_item.view.*
 class NewMessageActivity : AppCompatActivity() {
 
     lateinit var db: FirebaseDatabase
+    lateinit var auth: FirebaseAuth
+    lateinit var fireUser: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
 
         db = FirebaseDatabase.getInstance()
+        auth = FirebaseAuth.getInstance()
 
 //        val adapter = GroupAdapter<ViewHolder>()
 //
@@ -46,16 +51,21 @@ class NewMessageActivity : AppCompatActivity() {
     }
 
     private fun fetchUsers() {
-        val ref = db.getReference("/users")
+        val ref = db.reference.child("users").child(auth.uid.toString()).child("friendList")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
 
                 p0.children.forEach {
                     Log.d("NewMessage", it.toString())
-                    val user = it.getValue(Users::class.java)
-                    if (user != null) {
-                        adapter.add(UserItem(user))
+                    if (it.value == true){
+                        val userRef = db.reference.child("users").child(it.key.toString()).get().addOnSuccessListener {
+                            val user = it.getValue(Users::class.java)
+                            Log.d("NewMessage", user.toString())
+                            if (user != null){
+                                adapter.add(UserItem(user))
+                            }
+                        }
                     }
                 }
 
@@ -68,8 +78,8 @@ class NewMessageActivity : AppCompatActivity() {
                     intent.putExtra(USER_KEY, userItem.user)
                     startActivity(intent)
 
-                    finish()
-                }
+                   finish()
+            }
 
                 newMessage_recyclerView.adapter = adapter
             }
