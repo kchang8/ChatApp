@@ -89,8 +89,8 @@ class PostAdapter
                 {
                     val user = p0.getValue<Users>(Users::class.java)
 
-                    Picasso.get().load(user!!.getImageURL()).placeholder(R.drawable.profile_icon).into(profileImage)
-                    username.text = user!!.getUsername()
+                    Picasso.get().load(user!!.profileImageUrl).placeholder(R.drawable.profile_icon).into(profileImage)
+                    username.text = user!!.username
 
 
                 }

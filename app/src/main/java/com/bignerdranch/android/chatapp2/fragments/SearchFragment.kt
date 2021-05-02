@@ -154,7 +154,7 @@ class SearchFragment : Fragment()
                 for (snapshot in dataSnapshot.children)
                 {
                     val user = snapshot.getValue(Users::class.java)
-                    val uid = user!!.getUID()
+                    val uid = user!!.uid
                     if (user != null && uid != auth.uid)
                     {
                         mUser?.add(user)

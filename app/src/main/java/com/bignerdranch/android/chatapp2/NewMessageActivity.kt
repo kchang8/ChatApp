@@ -41,6 +41,10 @@ class NewMessageActivity : AppCompatActivity() {
 
     }
 
+    companion object{
+        val USER_KEY = "USER_KEY"
+    }
+
     private fun fetchUsers() {
         val ref = db.getReference("/users")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
@@ -56,8 +60,15 @@ class NewMessageActivity : AppCompatActivity() {
                 }
 
                 adapter.setOnItemClickListener { item, view ->
+
+                    val userItem = item as UserItem
+
                     val intent = Intent(view.context, ChatLogActivity::class.java)
+//                    intent.putExtra(USER_KEY, userItem.user.getUsername())
+                    intent.putExtra(USER_KEY, userItem.user)
                     startActivity(intent)
+
+                    finish()
                 }
 
                 newMessage_recyclerView.adapter = adapter
@@ -79,10 +90,10 @@ class UserItem(val user: Users): Item<ViewHolder>() {
         db = FirebaseDatabase.getInstance()
 
         // get user's usernames to display
-        viewHolder.itemView.newMessage_username.text = user.getUsername()
+        viewHolder.itemView.newMessage_username.text = user.username
 
         // get user's profile pics to display
-        refUsers = db.reference.child("users").child(user.getUID()!!)
+        refUsers = db.reference.child("users").child(user.uid!!)
         refUsers!!.addValueEventListener(object : ValueEventListener
         {
             override fun onDataChange(snapshot: DataSnapshot) {

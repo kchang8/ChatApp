@@ -48,7 +48,7 @@ class UserAdapter
         val user = mUser[position]
 
         //gets user's username to display
-        holder.searchUsernameTextView.text = user.getUsername()
+        holder.searchUsernameTextView.text = user.username
 
         // add button click listener
         holder.searchAddButton.setOnClickListener(){
@@ -56,8 +56,8 @@ class UserAdapter
 
             //this for loop is bad code yiiiikes
             for (user in mUser){
-                if (user.getUsername() == addUser){
-                    addUser = user.getUID()!!
+                if (user.username == addUser){
+                    addUser = user.uid!!
                 }
             }
 
@@ -77,7 +77,7 @@ class UserAdapter
         }
 
         // displaying user profile pictures
-        refUsers = db.reference.child("users").child(user.getUID()!!)
+        refUsers = db.reference.child("users").child(user.uid!!)
 
         refUsers!!.addValueEventListener(object : ValueEventListener
         {
