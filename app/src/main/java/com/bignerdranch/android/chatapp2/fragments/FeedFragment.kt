@@ -66,6 +66,8 @@ class FeedFragment : Fragment() {
         //setupDummyData()
         viewFriendRequests()
 
+
+
         return view
     }
 
@@ -76,9 +78,10 @@ class FeedFragment : Fragment() {
 
     private fun viewFriendRequests() {
         val ref = db.reference.child("users").child(auth.uid.toString()).child("friendList")
+
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-
+                adapter.clear()
                 p0.children.forEach {
                     Log.d("FeedFragment", it.toString())
                     if (it.value == false){

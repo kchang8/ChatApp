@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
 
                 if(p0.exists()){
 
-                    val imageUrl = p0.child("profileImageUrl").getValue().toString()
+                    val imageUrl = p0.child("profileImageUrl").value.toString()
 
                     Picasso.get().load(imageUrl).into(profile_profileImage)
 
@@ -57,19 +57,28 @@ class ProfileFragment : Fragment() {
 
                     profile_username2.text = user!!.username
 
+                    var friendCount : Int = 0
+
                     p0.child("friendList").children.forEach {
-                        Log.d("ProfileFragment", it.toString())
                         if (it.value == true){
-                            val userRef = db.reference.child("users").child(it.key.toString()).get().addOnSuccessListener {
-                                val user = it.getValue(Users::class.java)
-                                Log.d("ProfileFragment", user.toString())
-                                if (user != null){
-                                    val friendsCount = p0.child("friendList").childrenCount.toString()
-                                    profile_friends.text = friendsCount
-                                }
-                            }
+                            friendCount++
                         }
                     }
+                    profile_friends.text = friendCount.toString()
+
+//                    p0.child("friendList").children.forEach {
+//                        Log.d("ProfileFragment", it.toString())
+//                        if (it.value == true){
+//                            val userRef = db.reference.child("users").child(it.key.toString()).get().addOnSuccessListener {
+//                                val user = it.getValue(Users::class.java)
+//                                Log.d("ProfileFragment", user.toString())
+//                                if (user != null){
+//                                    val friendsCount = p0.child("friendList").childrenCount.toString()
+//                                    profile_friends.text = friendsCount
+//                                }
+//                            }
+//                        }
+//                    }
 
                 }
             }
