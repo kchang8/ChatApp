@@ -91,7 +91,7 @@ class ChatLogActivity : AppCompatActivity() {
             .child(fromUid)
             .child(toUid)
             .push()
-        val message = Message(messageRef.key.toString(), text, fromUid, toUid)
+        var message = Message(messageRef.key.toString(), text, fromUid, toUid)
         messageRef.setValue(message)
 
         //reflect message for targeted user
@@ -99,25 +99,9 @@ class ChatLogActivity : AppCompatActivity() {
             .child(toUid)
             .child(fromUid)
             .push()
+        message = Message(messageRef.key.toString(), text, fromUid, toUid)
         messageRef.setValue(message)
 
-    }
-
-    private fun testMessage1(){
-        //sends message from peter-parker to pussy slayer
-        var messageRef = db.reference.child("user-messages")
-            .child(auth.uid.toString())
-            .child("KuJUGS0hAqPBDHjYYaWDxavu2613")
-            .push()
-        val message = Message(messageRef.key.toString(), "kys pls", auth.uid.toString(), "KuJUGS0hAqPBDHjYYaWDxavu2613")
-        messageRef.setValue(message)
-
-        //need to do reverse for pussy slayer
-        messageRef = db.reference.child("user-messages")
-            .child("KuJUGS0hAqPBDHjYYaWDxavu2613")
-            .child(auth.uid.toString())
-            .push()
-        messageRef.setValue(message)
     }
 }
 
