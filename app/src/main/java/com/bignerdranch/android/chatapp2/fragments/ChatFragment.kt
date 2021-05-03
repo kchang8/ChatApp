@@ -2,20 +2,23 @@ package com.bignerdranch.android.chatapp2.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bignerdranch.android.chatapp2.ChatLogActivity
 import com.bignerdranch.android.chatapp2.NewMessageActivity
+import com.bignerdranch.android.chatapp2.NewMessageActivity.Companion.USER_KEY
 import com.bignerdranch.android.chatapp2.R
 import com.bignerdranch.android.chatapp2.modelClasses.Message
+import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -58,6 +61,19 @@ class ChatFragment : Fragment() {
 
 
         recyclerView!!.adapter = adapter
+        recyclerView!!.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+
+        //set item click listener on adapter
+        adapter.setOnItemClickListener { item, view ->
+            Log.d("ChatFragment", "123")
+            val intent = Intent(this.context, ChatLogActivity::class.java)
+
+            //gets the chat partner you are talking to when you press on their adapter view
+            val row = item as ChatMessageRow
+
+            intent.putExtra(NewMessageActivity.USER_KEY, row.chatPartnerUser)
+            startActivity(intent)
+        }
 
         listenForLatestMessages()
 
@@ -112,9 +128,41 @@ class ChatFragment : Fragment() {
 
 class ChatMessageRow(val chatMessage: Message): Item<ViewHolder>() {
 
+    lateinit var auth: FirebaseAuth
+    lateinit var db: FirebaseDatabase
+
+    var chatPartnerUser: Users? = null
+
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        // ISSUE HERE
-        //viewHolder.itemView.chat_latestMessageTextView.text = chatMessage.text
+        db = FirebaseDatabase.getInstance()
+        auth = FirebaseAuth.getInstance()
+
+        viewHolder.itemView.chat_latestMessageTextView.text = chatMessage.getText()
+
+        val chatPartnerId: String
+        if (chatMessage.getFromUid() == auth.uid) {
+            chatPartnerId = chatMessage.getToUid()
+        } else {
+            chatPartnerId = chatMessage.getFromUid()
+        }
+
+        val ref = db.getReference("/users/$chatPartnerId")
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                chatPartnerUser = snapshot.getValue(Users::class.java)
+                val targetImageView = viewHolder.itemView.chat_profileImageView
+
+                viewHolder.itemView.chat_usernameTextView.text = chatPartnerUser?.username
+
+                Picasso.get().load(chatPartnerUser?.profileImageUrl).into(targetImageView)
+            }
+
+        })
+
     }
 
     override fun getLayout(): Int {
