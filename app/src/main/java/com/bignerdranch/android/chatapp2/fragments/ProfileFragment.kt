@@ -1,6 +1,7 @@
 package com.bignerdranch.android.chatapp2.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,9 +57,20 @@ class ProfileFragment : Fragment() {
 
                     profile_username2.text = user!!.username
 
-                    val friendsCount = p0.child("friendList").childrenCount.toString()
+                    p0.child("friendList").children.forEach {
+                        Log.d("ProfileFragment", it.toString())
+                        if (it.value == true){
+                            val userRef = db.reference.child("users").child(it.key.toString()).get().addOnSuccessListener {
+                                val user = it.getValue(Users::class.java)
+                                Log.d("ProfileFragment", user.toString())
+                                if (user != null){
+                                    val friendsCount = p0.child("friendList").childrenCount.toString()
+                                    profile_friends.text = friendsCount
+                                }
+                            }
+                        }
+                    }
 
-                    profile_friends.text = friendsCount
                 }
             }
 

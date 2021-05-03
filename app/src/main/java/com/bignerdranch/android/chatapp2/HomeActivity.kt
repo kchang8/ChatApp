@@ -119,7 +119,7 @@ class HomeActivity : AppCompatActivity() {
 
         tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_chat_24)
         tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_search_24)
-        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_feed_24)
+        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_notifications_24)
         tabs.getTabAt(3)!!.setIcon(R.drawable.ic_baseline_person_24)
     }
 

@@ -71,6 +71,9 @@ class UserAdapter
                 else{
                     Log.d("addingFriend", "now adding friend")
                     db.reference.child("users").child(addUser.toString()).child("friendList").child(auth.uid.toString()).setValue(false)
+
+                    // make the add button pending
+                    holder.searchAddButton.setImageResource(R.drawable.ic_baseline_pending_24)
                 }
             }.addOnFailureListener {
             }
