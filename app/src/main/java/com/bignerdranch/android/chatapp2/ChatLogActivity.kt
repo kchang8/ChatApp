@@ -83,9 +83,11 @@ class ChatLogActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.send_button_chat_log)
         button.setOnClickListener(){
             val message = findViewById<EditText>(R.id.edittext_chat_log).text.toString()
+
             sendMessage(message, auth.uid.toString(), toUser!!.uid)
 
             edittext_chat_log.text.clear()
+
         }
 
         chatLog_recyclerView.adapter = adapter
