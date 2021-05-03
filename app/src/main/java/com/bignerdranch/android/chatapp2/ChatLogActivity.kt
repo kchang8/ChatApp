@@ -3,6 +3,7 @@ package com.bignerdranch.android.chatapp2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
@@ -20,10 +21,14 @@ class ChatLogActivity : AppCompatActivity() {
         }
 
 //        val username = intent.getStringExtra(NewMessageActivity.USER_KEY)
+//        if (username != null) {
+//            Log.d("Chat Log Username", username)
+//        }
 
         val user = intent.getParcelableExtra<Users>(NewMessageActivity.USER_KEY)
 
-        supportActionBar?.title = user!!.username
+        // makes the chat log text view the user name of the person you are chatting with
+        chatLog_TextView.text = user!!.username
 
         val adapter = GroupAdapter<ViewHolder>()
 
@@ -36,7 +41,7 @@ class ChatLogActivity : AppCompatActivity() {
         adapter.add(ChatFromItem())
         adapter.add(ChatToItem())
 
-        recyclerview_chat_log.adapter = adapter
+        chatLog_recyclerView.adapter = adapter
     }
 }
 

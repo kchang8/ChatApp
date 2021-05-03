@@ -44,10 +44,12 @@
     <EditText
         android:id="@+id/edittext_chat_log"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Enter Message"
         android:inputType="textPersonName"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_button_chat_log"
         app:layout_constraintHorizontal_bias="0.538"
@@ -65,16 +67,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerview_chat_log"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:background="@color/teal_700"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/edittext_chat_log"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/newMessage_linearLayout" />-->
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_chat_log"
+        android:id="@+id/chatLog_recyclerView"
+        android:background="@drawable/mint_chat_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/teal_700"
-        app:layout_constraintBottom_toTopOf="@+id/edittext_chat_log"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newMessage_linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/chatLog_linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

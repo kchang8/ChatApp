@@ -8,20 +8,19 @@
     android:layout_marginBottom="12dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/chatLog_messageFromRowTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:maxWidth="240dp"
+        android:padding="16dp"
         android:layout_marginStart="8dp"
         android:text="This is my message that is very looooooong"
-        android:maxWidth="240dp"
-        android:background="@drawable/rounded_edittext_register_login"
-        android:padding="16dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/chatLog_profileFromRowImageView"
+        app:layout_constraintTop_toTopOf="@+id/chatLog_profileFromRowImageView" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/chatLog_profileFromRowImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
@@ -29,6 +28,6 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_person_24" />
+        android:src="@drawable/ic_baseline_person_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
