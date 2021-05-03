@@ -78,14 +78,14 @@ class NewMessageActivity : AppCompatActivity() {
                     intent.putExtra(USER_KEY, userItem.user)
                     startActivity(intent)
 
-                   finish()
-            }
+                    finish()
+                }
 
                 newMessage_recyclerView.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
     }

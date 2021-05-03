@@ -1,5 +1,6 @@
 package com.bignerdranch.android.chatapp2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,11 +27,20 @@ class ChatLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
+        chatLog_backButton.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
 //        val username = intent.getStringExtra(NewMessageActivity.USER_KEY)
+//        if (username != null) {
+//            Log.d("Chat Log Username", username)
+//        }
 
         val user = intent.getParcelableExtra<Users>(NewMessageActivity.USER_KEY)
 
-        supportActionBar?.title = user!!.username
+        // makes the chat log text view the user name of the person you are chatting with
+        chatLog_TextView.text = user!!.username
 
         val adapter = GroupAdapter<ViewHolder>()
 
@@ -72,7 +82,7 @@ class ChatLogActivity : AppCompatActivity() {
             sendMessage(message, auth.uid.toString(), user.uid)
         }
 
-        recyclerview_chat_log.adapter = adapter
+        chatLog_recyclerView.adapter = adapter
     }
 
     private fun sendMessage(text: String, fromUid: String, toUid:String){
@@ -117,7 +127,7 @@ class ChatFromItem(message: String) : Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
 
-        viewHolder.itemView.textFromView.text = msg
+        viewHolder.itemView.chatLog_messageFromRowTextView.text = msg
 
     }
 
@@ -133,7 +143,7 @@ class ChatToItem(message: String): Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
 
-        viewHolder.itemView.textToView.text = msg
+        viewHolder.itemView.chatLog_messageToRowTextView.text = msg
 
     }
 

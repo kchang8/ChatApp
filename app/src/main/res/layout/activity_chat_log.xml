@@ -5,11 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewMessageActivity"
+    tools:context=".ChatLogActivity"
     android:background="@android:color/white">
 
+
     <LinearLayout
-        android:id="@+id/newMessage_linearLayout"
+        android:id="@+id/chatLog_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/teal_200"
@@ -18,14 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/chatLog_backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
         <TextView
             android:id="@+id/chatLog_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:text="Chat Log"
             android:textColor="@android:color/white"
             android:textSize="25sp"
@@ -36,10 +44,12 @@
     <EditText
         android:id="@+id/edittext_chat_log"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Enter Message"
         android:inputType="textPersonName"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_button_chat_log"
         app:layout_constraintHorizontal_bias="0.538"
@@ -57,16 +67,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerview_chat_log"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:background="@color/teal_700"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/edittext_chat_log"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/newMessage_linearLayout" />-->
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_chat_log"
+        android:id="@+id/chatLog_recyclerView"
+        android:background="@drawable/mint_chat_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/teal_700"
-        app:layout_constraintBottom_toTopOf="@+id/edittext_chat_log"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newMessage_linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/chatLog_linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
