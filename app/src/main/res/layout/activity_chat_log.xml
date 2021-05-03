@@ -67,18 +67,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerview_chat_log"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginBottom="8dp"-->
-<!--        android:background="@color/teal_700"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/edittext_chat_log"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/newMessage_linearLayout" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatLog_recyclerView"
         android:background="@drawable/mint_chat_background"

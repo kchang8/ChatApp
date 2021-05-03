@@ -2,6 +2,7 @@ package com.bignerdranch.android.chatapp2
 
 import android.content.Intent
 import android.os.Bundle
+import android.renderscript.Sampler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bignerdranch.android.chatapp2.fragments.ChatFragment
@@ -26,12 +27,18 @@ class HomeActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var db: FirebaseDatabase
 
+    companion object {
+        var currentUser: Users? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
+
+        fetchCurrentUser()
 
         verifyUserIsLoggedIn()
 
@@ -70,6 +77,24 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun fetchCurrentUser() {
+        val uid = auth.uid
+        val ref = db.getReference("/users/$uid")
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot){
+                currentUser = p0.getValue(Users::class.java)
+                Log.d(HOME_TAG, "Current user ${currentUser?.profileImageUrl}")
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     private fun verifyUserIsLoggedIn() {

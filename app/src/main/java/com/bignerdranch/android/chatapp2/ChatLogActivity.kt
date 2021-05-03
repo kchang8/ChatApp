@@ -10,6 +10,7 @@ import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.bignerdranch.android.chatapp2.modelClasses.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -22,6 +23,8 @@ class ChatLogActivity : AppCompatActivity() {
 
     val db = FirebaseDatabase.getInstance()
     val auth = FirebaseAuth.getInstance()
+
+    var toUser: Users? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,25 +40,26 @@ class ChatLogActivity : AppCompatActivity() {
 //            Log.d("Chat Log Username", username)
 //        }
 
-        val user = intent.getParcelableExtra<Users>(NewMessageActivity.USER_KEY)
+        toUser = intent.getParcelableExtra(NewMessageActivity.USER_KEY)
 
         // makes the chat log text view the user name of the person you are chatting with
-        chatLog_TextView.text = user!!.username
+        chatLog_TextView.text = toUser!!.username
 
         val adapter = GroupAdapter<ViewHolder>()
 
         //retrieve messages from userMessages in realtime database
-        val messageRef = db.reference.child("user-messages").child(auth.uid.toString()).child(user.uid)
+        val messageRef = db.reference.child("user-messages").child(auth.uid.toString()).child(toUser!!.uid)
         messageRef.addChildEventListener(object : ChildEventListener{
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val message = snapshot.getValue(Message::class.java)
 
                 if (message?.getFromUid() == auth.uid.toString()){
-                    adapter.add(ChatToItem(message.getText()))
+                    val currentUser = HomeActivity.currentUser
+                    adapter.add(ChatToItem(message.getText(), currentUser!!))
                 }
                 else {
-                    adapter.add(ChatFromItem(message?.getText().toString()))
+                    adapter.add(ChatFromItem(message!!.getText(), toUser!!))
                 }
             }
 
@@ -79,7 +83,9 @@ class ChatLogActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.send_button_chat_log)
         button.setOnClickListener(){
             val message = findViewById<EditText>(R.id.edittext_chat_log).text.toString()
-            sendMessage(message, auth.uid.toString(), user.uid)
+            sendMessage(message, auth.uid.toString(), toUser!!.uid)
+
+            edittext_chat_log.text.clear()
         }
 
         chatLog_recyclerView.adapter = adapter
@@ -102,16 +108,31 @@ class ChatLogActivity : AppCompatActivity() {
         message = Message(messageRef.key.toString(), text, fromUid, toUid)
         messageRef.setValue(message)
 
+
+        // showing latest messages refs
+        val latestMessageFromRef = db.reference.child("latest-messages")
+                .child(fromUid)
+                .child(toUid)
+        latestMessageFromRef.setValue(message)
+
+        val latestMessageToRef = db.reference.child("latest-messages")
+                .child(toUid)
+                .child(fromUid)
+        latestMessageToRef.setValue(message)
     }
 }
 
-class ChatFromItem(message: String) : Item<ViewHolder>() {
+class ChatFromItem(message: String, user: Users?) : Item<ViewHolder>() {
 
     private val msg = message
+    private val uri = user!!.profileImageUrl
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
+        val fromRowTargetImage = viewHolder.itemView.chatLog_profileFromRowImageView
 
         viewHolder.itemView.chatLog_messageFromRowTextView.text = msg
+
+        Picasso.get().load(uri).into(fromRowTargetImage)
 
     }
 
@@ -121,13 +142,17 @@ class ChatFromItem(message: String) : Item<ViewHolder>() {
     }
 }
 
-class ChatToItem(message: String): Item<ViewHolder>() {
+class ChatToItem(message: String, user: Users?): Item<ViewHolder>() {
 
     private val msg = message
+    private val uri = user!!.profileImageUrl
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
+        val toRowTargetImage = viewHolder.itemView.chatLog_profileToRowImageView
 
         viewHolder.itemView.chatLog_messageToRowTextView.text = msg
+
+        Picasso.get().load(uri).into(toRowTargetImage)
 
     }
 

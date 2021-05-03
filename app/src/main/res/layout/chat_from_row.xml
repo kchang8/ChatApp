@@ -19,7 +19,7 @@
         app:layout_constraintStart_toEndOf="@+id/chatLog_profileFromRowImageView"
         app:layout_constraintTop_toTopOf="@+id/chatLog_profileFromRowImageView" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/chatLog_profileFromRowImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
