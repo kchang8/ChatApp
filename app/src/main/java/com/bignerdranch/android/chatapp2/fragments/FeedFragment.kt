@@ -67,6 +67,9 @@ class FeedFragment : Fragment() {
         viewFriendRequests()
 
 
+        Log.d("FeedFragment", "${recyclerView?.adapter?.itemCount}")
+
+
 
         return view
     }
@@ -79,7 +82,7 @@ class FeedFragment : Fragment() {
     private fun viewFriendRequests() {
         val ref = db.reference.child("users").child(auth.uid.toString()).child("friendList")
 
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
+        ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 adapter.clear()
                 p0.children.forEach {
@@ -112,6 +115,7 @@ class FriendRequestRow(val user: Users): Item<ViewHolder>() {
     private var refUsers: DatabaseReference? = null
 
     lateinit var db: FirebaseDatabase
+    lateinit var auth: FirebaseAuth
 
     override fun getLayout(): Int {
         return R.layout.feed_list_item
@@ -119,6 +123,8 @@ class FriendRequestRow(val user: Users): Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         db = FirebaseDatabase.getInstance()
+        auth = FirebaseAuth.getInstance()
+        Log.d("FeedFragmentUser", user.uid)
 
         // get user's usernames to display
         viewHolder.itemView.feedItem_username.text = user.username
@@ -130,7 +136,7 @@ class FriendRequestRow(val user: Users): Item<ViewHolder>() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists())
                 {
-                    val imageUrl = snapshot.child("profileImageUrl").getValue().toString()
+                    val imageUrl = snapshot.child("profileImageUrl").value.toString()
 
                     Picasso.get().load(imageUrl).into(viewHolder.itemView.feedItem_profileImage)
                 }
@@ -140,6 +146,31 @@ class FriendRequestRow(val user: Users): Item<ViewHolder>() {
 
             }
         })
-    }
 
+        //accepting friend request
+        viewHolder.itemView.feedItem_addButton.setOnClickListener(){
+            //change fromUser's friendList value to true in currentUser's friendList
+            db.reference.child("users")
+                    .child(auth.uid.toString())
+                    .child("friendList")
+                    .child(user.uid)
+                    .setValue(true)
+
+            //now we do the same for the user that initially made the request
+            db.reference.child("users")
+                    .child(user.uid)
+                    .child("friendList")
+                    .child(auth.uid.toString())
+                    .setValue(true)
+        }
+
+        //declining friend request
+        viewHolder.itemView.feedItem_declineButton.setOnClickListener(){
+            db.reference.child("users")
+                    .child(auth.uid.toString())
+                    .child("friendList")
+                    .child(user.uid)
+                    .removeValue()
+        }
+    }
 }
