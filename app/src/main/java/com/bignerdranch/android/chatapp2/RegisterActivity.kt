@@ -10,7 +10,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_register.*
@@ -131,9 +133,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun saveUserToFirebaseDatabase(profileImageUrl: String) {
         val uid = auth.uid ?: ""
+        val email = auth.currentUser?.email
         val ref = db.getReference("/users/$uid")
 
-        val user = User(uid, register_username.text.toString().toLowerCase(), profileImageUrl)
+        val user = Users(uid, register_username.text.toString().toLowerCase(), email.toString(), profileImageUrl)
 
         ref.setValue(user)
                 .addOnSuccessListener {
@@ -150,4 +153,4 @@ class RegisterActivity : AppCompatActivity() {
 
 }
 
-class User(val uid: String, val username: String, val profileImageUrl: String)
+class User(val uid: String, val username: String, val email: String, val profileImageUrl: String)
