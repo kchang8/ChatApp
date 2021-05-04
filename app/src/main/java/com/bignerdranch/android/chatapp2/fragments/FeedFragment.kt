@@ -74,11 +74,6 @@ class FeedFragment : Fragment() {
         return view
     }
 
-//    private fun setupDummyData() {
-//        adapter.add(FriendRequestRow())
-//        adapter.add(FriendRequestRow())
-//    }
-
     private fun viewFriendRequests() {
         val ref = db.reference.child("users").child(auth.uid.toString()).child("friendList")
 
