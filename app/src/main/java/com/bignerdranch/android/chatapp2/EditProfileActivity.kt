@@ -69,7 +69,11 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFirebaseStorage() {
-        if (selectedPhotoUri == null) return
+        if (selectedPhotoUri == null) {
+            Log.d("EditProfile", "No image detected. Starting updateUserInfo method...")
+            updateUserInfo("")
+            return
+        }
 
         val filename = UUID.randomUUID().toString()
         val ref = storage.getReference("/images/$filename")
@@ -81,12 +85,35 @@ class EditProfileActivity : AppCompatActivity() {
                 ref.downloadUrl.addOnSuccessListener {
                     Log.d("EditProfile", "File location: $it")
 
-                    saveUserInfoToDatabase(it.toString())
+                    updateUserInfo(it.toString())
                 }
             }
             .addOnFailureListener {
                 Log.d("EditProfile", "Failed to upload image")
             }
+    }
+
+    private fun updateUserInfo(profileImageUrl: String) {
+        val uid = auth.uid.toString()
+        val username = editProfile_username.text.toString()
+        val updates = hashMapOf<String, Any>()
+        val user = auth.currentUser
+
+        if (username != ""){
+            updates["/users/$uid/username"] = username
+        }
+        if (profileImageUrl != ""){
+            updates["/users/$uid/profileImageUrl"] = profileImageUrl
+        }
+
+        db.reference.updateChildren(updates).addOnSuccessListener {
+            Toast.makeText(this, "Successfully saved data", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
+        }
+
+
+
     }
 
     private fun saveUserInfoToDatabase(profileImageUrl: String) {
@@ -99,25 +126,27 @@ class EditProfileActivity : AppCompatActivity() {
         }
         else if (username.isNotEmpty() && email.isNotEmpty()) {
             try {
-                val key = db.reference.child("users").push().key
-                if (key == null) {
-                    Log.w("EditProfile", "Couldn't get push key for users")
-                    return
-                }
+//                val key = db.reference.child("users").push().key
+//                if (key == null) {
+//                    Log.w("EditProfile", "Couldn't get push key for users")
+//                    return
+//                }
+//
+//                val newUserInfo = Users(auth.uid!!, username, email, profileImageUrl)
+//                val newUserInfoValues = newUserInfo.toMap()
+//
+//                val childUpdates = hashMapOf<String, Any>(
+//                    "/users/$key" to newUserInfoValues
+//                )
+//
+//                db.reference.updateChildren(childUpdates)
+//                    .addOnSuccessListener {
+//                        Toast.makeText(this, "Successfully saved data", Toast.LENGTH_SHORT).show()
+//                    }.addOnFailureListener {
+//                        Toast.makeText(this, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
+//                    }
 
-                val newUserInfo = Users(auth.uid!!, username, email, profileImageUrl)
-                val newUserInfoValues = newUserInfo.toMap()
 
-                val childUpdates = hashMapOf<String, Any>(
-                    "/users/$key" to newUserInfoValues
-                )
-
-                db.reference.updateChildren(childUpdates)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Successfully saved data", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener {
-                        Toast.makeText(this, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
-                    }
 
 
             } catch (e: Exception) {
