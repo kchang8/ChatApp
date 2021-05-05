@@ -58,7 +58,7 @@
         android:layout_width="102dp"
         android:layout_height="103dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_baseline_person_24"
+        android:src="@drawable/change_pfp_icon"
         app:layout_constraintBottom_toBottomOf="@+id/profile_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,20 +79,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_linearLayout"
         app:layout_constraintVertical_bias="0.127" />
 
-    <EditText
-        android:id="@+id/editProfile_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="New Email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile_username"
-        app:layout_constraintVertical_bias="0.087" />
-
     <Button
         android:id="@+id/editProfile_saveButton"
         android:layout_width="wrap_content"
@@ -103,7 +89,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile_email" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfile_username" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

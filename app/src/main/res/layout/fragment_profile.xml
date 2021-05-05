@@ -15,44 +15,57 @@
         android:background="@drawable/mint_background"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_profileImage"
-            android:layout_width="102dp"
-            android:layout_height="103dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="45dp"
-            android:src="@drawable/ic_baseline_person_24" />
-
-        <TextView
-            android:id="@+id/profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="username"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:textSize="30sp">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/profile_editProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Edit Profile"
-            android:textColor="@color/teal_700"
-            android:textSize="18sp"
-            android:textStyle="bold">
-
-        </TextView>
-
     </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_profileImage"
+        android:layout_width="102dp"
+        android:layout_height="103dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/ic_baseline_person_24"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/profile_linearLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="60dp"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="username"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_profileImage">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/profile_editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:text="Edit Profile"
+        android:textColor="@color/teal_700"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_username">
+
+    </TextView>
 
     <!--linear layout for username field-->
 
@@ -60,15 +73,15 @@
         android:id="@+id/profile_linearLayoutUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/profile_linearLayoutFriends"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayout"
-        app:layout_constraintVertical_bias="0.183">
+        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayout">
 
         <ImageView
             android:layout_width="30dp"
@@ -89,59 +102,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:text="username"
-            android:textColor="@android:color/black"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/profile_linearLayoutUsername"
-        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutUsername" />
-
-    <LinearLayout
-        android:id="@+id/profile_linearLayoutEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutUsername"
-        app:layout_constraintVertical_bias="0.136">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_baseline_email_24" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Email"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/profile_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="68dp"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:text="email"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -154,25 +117,26 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/profile_linearLayoutEmail"
-        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutEmail" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/profile_linearLayoutUsername"
+        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutUsername" />
 
 
     <!--linear layout for friends field-->
-
     <LinearLayout
         android:id="@+id/profile_linearLayoutFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/profile_friendRequestList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_linearLayoutEmail"
-        app:layout_constraintVertical_bias="0.215">
+        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.218">
 
         <ImageView
             android:layout_width="30dp"

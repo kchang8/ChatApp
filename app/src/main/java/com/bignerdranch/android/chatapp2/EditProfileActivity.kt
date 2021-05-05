@@ -116,7 +116,7 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         Toast.makeText(this, "Successfully saved data", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener {
-                        Toast.makeText(this, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@EditProfileActivity, "Failed to save data", Toast.LENGTH_SHORT).show()
                     }
 
 

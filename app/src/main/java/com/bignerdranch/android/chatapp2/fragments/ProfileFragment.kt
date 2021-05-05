@@ -72,9 +72,6 @@ class ProfileFragment : Fragment() {
                     // gets the small text field username to display
                     profile_username2.text = user!!.username
 
-                    // gets their emails to be displayed
-                    profile_email.text = user.email
-
                     // displays how many friends the user has
                     var friendCount : Int = 0
                     p0.child("friendList").children.forEach {
