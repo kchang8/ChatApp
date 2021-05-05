@@ -7,18 +7,28 @@ class Message {
     private var text: String = ""
     private var fromUid: String = ""
     private var toUid: String = ""
+<<<<<<< Updated upstream
     private var imageUrl: String = ""
     //private var type: String = ""
+=======
+    private var type: String = ""
+>>>>>>> Stashed changes
 
     constructor()
 
-    constructor(id: String, text: String, fromUid: String, toUid: String){
+    constructor(id: String, text: String, fromUid: String, toUid: String, type: String) {
         this.id = id
         this.text = text
         this.fromUid = fromUid
         this.toUid = toUid
+<<<<<<< Updated upstream
         //this.type = type
+=======
+        this.type = type
+>>>>>>> Stashed changes
     }
+
+
     fun getId(): String{
         return id
     }
@@ -51,5 +61,15 @@ class Message {
         this.toUid = toUid
     }
 
+<<<<<<< Updated upstream
 
+=======
+    fun getType(): String{
+        return type
+    }
+
+    fun setType(type: String){
+        this.type = type
+    }
+>>>>>>> Stashed changes
 }
