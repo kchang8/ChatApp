@@ -1,15 +1,10 @@
 package com.bignerdranch.android.chatapp2
 
 import android.app.Activity
-<<<<<<< Updated upstream
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
-=======
 import android.app.ProgressDialog
-import android.content.Intent
-import android.net.Uri
->>>>>>> Stashed changes
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -18,7 +13,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.bignerdranch.android.chatapp2.modelClasses.Message
 import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.android.gms.tasks.Continuation
@@ -37,18 +31,14 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.android.synthetic.main.activity_chat_log.*
-<<<<<<< Updated upstream
 import kotlinx.android.synthetic.main.activity_chat_log.view.*
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-=======
->>>>>>> Stashed changes
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 import java.util.*
 
 
 class ChatLogActivity : AppCompatActivity() {
-    var selectedPhotoUri: Uri? = null
 
     val db = FirebaseDatabase.getInstance()
     val auth = FirebaseAuth.getInstance()
@@ -70,7 +60,7 @@ class ChatLogActivity : AppCompatActivity() {
         }
 
         // checks if the image icon is clicked
-        chatLog_addImageIcon.setOnClickListener {
+        image_button.setOnClickListener {
             Log.d("ChatLog", "Showing photo selector")
 
             val intent = Intent(Intent.ACTION_PICK)
@@ -94,19 +84,10 @@ class ChatLogActivity : AppCompatActivity() {
 
                 if (message?.getFromUid() == auth.uid.toString()){
                     val currentUser = HomeActivity.currentUser
-<<<<<<< Updated upstream
-                    adapter.add(ChatToItem(message.getText(), currentUser!!))
-
-                }
-                else {
-                    adapter.add(ChatFromItem(message!!.getText(), toUser!!))
-
-=======
                     adapter.add(ChatToItem(message.getText(), currentUser!!, message.getType()))
                 }
                 else {
                     adapter.add(ChatFromItem(message!!.getText(), toUser!!, message.getType()))
->>>>>>> Stashed changes
                 }
 
                 chatLog_recyclerView.scrollToPosition(adapter.itemCount - 1)
@@ -195,8 +176,6 @@ class ChatLogActivity : AppCompatActivity() {
                 }
     }
 
-
-
     private fun sendMessage(text: String, fromUid: String, toUid:String, type: String){
         //send message
         var messageRef = db.reference.child("user-messages")
@@ -226,21 +205,6 @@ class ChatLogActivity : AppCompatActivity() {
                 .child(toUid)
                 .child(fromUid)
         latestMessageToRef.setValue(message)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
-            Log.d(ADD_POST_TAG, "Photo was selected to be sent")
-
-            selectedPhotoUri = data.data
-
-            Log.d("ChatLog", selectedPhotoUri.toString())
-
-            chatLog_addImageIcon.setImageURI(selectedPhotoUri)
-
-        }
     }
 }
 
