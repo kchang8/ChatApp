@@ -7,12 +7,7 @@ class Message {
     private var text: String = ""
     private var fromUid: String = ""
     private var toUid: String = ""
-<<<<<<< Updated upstream
-    private var imageUrl: String = ""
-    //private var type: String = ""
-=======
     private var type: String = ""
->>>>>>> Stashed changes
 
     constructor()
 
@@ -21,11 +16,7 @@ class Message {
         this.text = text
         this.fromUid = fromUid
         this.toUid = toUid
-<<<<<<< Updated upstream
-        //this.type = type
-=======
         this.type = type
->>>>>>> Stashed changes
     }
 
 
@@ -61,9 +52,6 @@ class Message {
         this.toUid = toUid
     }
 
-<<<<<<< Updated upstream
-
-=======
     fun getType(): String{
         return type
     }
@@ -71,5 +59,4 @@ class Message {
     fun setType(type: String){
         this.type = type
     }
->>>>>>> Stashed changes
 }

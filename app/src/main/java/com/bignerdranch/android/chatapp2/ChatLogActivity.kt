@@ -59,16 +59,17 @@ class ChatLogActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        toUser = intent.getParcelableExtra(NewMessageActivity.USER_KEY)
+        Log.d("ChatLogActivity", toUser.toString())
+
+
         // checks if the image icon is clicked
         image_button.setOnClickListener {
-            Log.d("ChatLog", "Showing photo selector")
 
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
-
-        toUser = intent.getParcelableExtra(NewMessageActivity.USER_KEY)
 
         // makes the chat log text view the user name of the person you are chatting with
         chatLog_TextView.text = toUser!!.username
@@ -85,9 +86,11 @@ class ChatLogActivity : AppCompatActivity() {
                 if (message?.getFromUid() == auth.uid.toString()){
                     val currentUser = HomeActivity.currentUser
                     adapter.add(ChatToItem(message.getText(), currentUser!!, message.getType()))
+                    Log.d("ChatLog", message.getType())
                 }
                 else {
                     adapter.add(ChatFromItem(message!!.getText(), toUser!!, message.getType()))
+                    Log.d("ChatLog", message.getType())
                 }
 
                 chatLog_recyclerView.scrollToPosition(adapter.itemCount - 1)
