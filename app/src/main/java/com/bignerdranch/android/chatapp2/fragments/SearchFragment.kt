@@ -155,10 +155,12 @@ class SearchFragment : Fragment()
                 {
                     val user = snapshot.getValue(Users::class.java)
                     val uid = user!!.uid
+
                     if (user != null && uid != auth.uid)
                     {
                         mUser?.add(user)
                     }
+
                 }
 
                 userAdapter?.notifyDataSetChanged()

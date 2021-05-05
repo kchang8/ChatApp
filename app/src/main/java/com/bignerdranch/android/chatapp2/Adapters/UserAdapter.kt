@@ -50,30 +50,53 @@ class UserAdapter
         //gets user's username to display
         holder.searchUsernameTextView.text = user.username
 
-        // add button click listener
-        holder.searchAddButton.setOnClickListener(){
-            var addUser = holder.searchUsernameTextView.text.toString()
-
-            //this for loop is bad code yiiiikes
-            for (user in mUser){
-                if (user.username == addUser){
-                    addUser = user.uid!!
+        var addUser = user.username
+        //this for loop is bad code yiiiikes
+        for (user in mUser){
+            if (user.username == addUser){
+                addUser = user.uid!!
+            }
+        }
+        val friendList = db.reference.child("users").child(addUser).child("friendList").child(auth.uid.toString()).get()
+        friendList.addOnSuccessListener {
+            Log.d("UserAdapter", "getting friendList was successful")
+            when(it.value){
+                null ->{
+                    holder.searchAddButton.setImageResource(R.drawable.ic_baseline_add_circle_24)
+                }
+                false -> {
+                    holder.searchAddButton.setImageResource(R.drawable.ic_baseline_pending_24)
+                }
+                true -> {
+                    holder.searchAddButton.setImageResource(R.drawable.ic_baseline_check_box_24)
                 }
             }
+        }
 
+        // add button click listener
+        holder.searchAddButton.setOnClickListener(){
             //gets node at which the addUser should be at
-            val friendList = db.reference.child("users").child(addUser).child("friendList").child(auth.uid.toString()).get()
             friendList.addOnSuccessListener {
-                if (it.exists()){
-                    Log.d("friendAlreadyAdded", "You already made a friend request ")
-                }
-                //writes to targeted user's information
-                else{
-                    Log.d("addingFriend", "now adding friend")
-                    db.reference.child("users").child(addUser.toString()).child("friendList").child(auth.uid.toString()).setValue(false)
+                when (it.value) {
+                    //writes to targeted user's information
+                    null -> {
+                        Log.d("addingFriend", "now adding friend")
+                        db.reference.child("users")
+                            .child(addUser.toString())
+                            .child("friendList")
+                            .child(auth.uid.toString())
+                            .setValue(false)
+                        holder.searchAddButton.setImageResource(R.drawable.ic_baseline_pending_24)
 
-                    // make the add button pending
-                    holder.searchAddButton.setImageResource(R.drawable.ic_baseline_pending_24)
+                    }
+                    false -> {
+                        Log.d("UserAdapter", "Friend request is pending! ")
+                        holder.searchAddButton.setImageResource(R.drawable.ic_baseline_pending_24)
+                    }
+                    true -> {
+                        Log.d("UserAdapter", "You already have them as a friend!")
+                        holder.searchAddButton.setImageResource(R.drawable.ic_baseline_check_box_24)
+                    }
                 }
             }.addOnFailureListener {
             }
