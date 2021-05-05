@@ -7,13 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
 class EditProfileActivity : AppCompatActivity() {
@@ -69,7 +66,11 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFirebaseStorage() {
-        if (selectedPhotoUri == null) return
+        if (selectedPhotoUri == null) {
+            Log.d("EditProfile", "No image detected. Starting updateUserInfo method...")
+            updateUserInfo("")
+            return
+        }
 
         val filename = UUID.randomUUID().toString()
         val ref = storage.getReference("/images/$filename")
@@ -81,7 +82,7 @@ class EditProfileActivity : AppCompatActivity() {
                 ref.downloadUrl.addOnSuccessListener {
                     Log.d("EditProfile", "File location: $it")
 
-                    saveUserInfoToDatabase(it.toString())
+                    updateUserInfo(it.toString())
                 }
             }
             .addOnFailureListener {
@@ -89,41 +90,25 @@ class EditProfileActivity : AppCompatActivity() {
             }
     }
 
-    private fun saveUserInfoToDatabase(profileImageUrl: String) {
-        val uid = auth.uid
+    private fun updateUserInfo(profileImageUrl: String) {
+        val uid = auth.uid.toString()
         val username = editProfile_username.text.toString()
-        val email = editProfile_email.text.toString()
+        val updates = hashMapOf<String, Any>()
+        val user = auth.currentUser
 
-        if(username.isEmpty() || email.isEmpty()) {
-            Toast.makeText(this, "Please enter a new username or email", Toast.LENGTH_SHORT).show()
+        if (username != ""){
+            updates["/users/$uid/username"] = username
         }
-        else if (username.isNotEmpty() && email.isNotEmpty()) {
-            try {
-                val key = db.reference.child("users").push().key
-                if (key == null) {
-                    Log.w("EditProfile", "Couldn't get push key for users")
-                    return
-                }
-
-                val newUserInfo = Users(auth.uid!!, username, email, profileImageUrl)
-                val newUserInfoValues = newUserInfo.toMap()
-
-                val childUpdates = hashMapOf<String, Any>(
-                    "/users/$key" to newUserInfoValues
-                )
-
-                db.reference.updateChildren(childUpdates)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Successfully saved data", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener {
-                        Toast.makeText(this@EditProfileActivity, "Failed to save data", Toast.LENGTH_SHORT).show()
-                    }
-
-
-            } catch (e: Exception) {
-                Toast.makeText(this@EditProfileActivity, e.message, Toast.LENGTH_LONG).show()
-            }
+        if (profileImageUrl != ""){
+            updates["/users/$uid/profileImageUrl"] = profileImageUrl
         }
+
+        db.reference.updateChildren(updates).addOnSuccessListener {
+            Toast.makeText(this, "Successfully saved data", Toast.LENGTH_LONG).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
+        }
+
     }
 
 }
