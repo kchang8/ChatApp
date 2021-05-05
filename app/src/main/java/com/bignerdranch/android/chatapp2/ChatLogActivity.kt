@@ -64,7 +64,7 @@ class ChatLogActivity : AppCompatActivity() {
 
 
         // checks if the image icon is clicked
-        image_button.setOnClickListener {
+        chatLog_imageButton.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -124,16 +124,6 @@ class ChatLogActivity : AppCompatActivity() {
             sendMessage(message, auth.uid.toString(), toUser!!.uid, type)
 
             edittext_chat_log.text.clear()
-
-        }
-
-        val imageButton = findViewById<ImageButton>(R.id.image_button)
-        imageButton.setOnClickListener(){
-            Log.d(TAG, "Showing photo selector")
-
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
 
         }
 
@@ -237,7 +227,7 @@ class ChatFromItem(message: String, user: Users?, type: String) : Item<ViewHolde
             viewHolder.itemView.chatLog_messageFromRowTextView.visibility = View.GONE
             viewHolder.itemView.chatLog_imageFromRowTextView.visibility = View.VISIBLE
 
-            Picasso.get().load(msg).placeholder(R.drawable.ic_image_black).into(viewHolder.itemView.chatLog_imageFromRowTextView)
+            Picasso.get().load(msg).placeholder(R.drawable.ic_baseline_image_24).into(viewHolder.itemView.chatLog_imageFromRowTextView)
 
 
         }
@@ -276,7 +266,7 @@ class ChatToItem(message: String, user: Users?, type: String): Item<ViewHolder>(
             viewHolder.itemView.chatLog_messageToRowTextView.visibility = View.GONE
             viewHolder.itemView.chatLog_imageToRowTextView.visibility = View.VISIBLE
 
-            Picasso.get().load(msg).placeholder(R.drawable.ic_image_black).into(viewHolder.itemView.chatLog_imageToRowTextView)
+            Picasso.get().load(msg).placeholder(R.drawable.ic_baseline_image_24).into(viewHolder.itemView.chatLog_imageToRowTextView)
         }
 
 

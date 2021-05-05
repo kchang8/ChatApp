@@ -31,7 +31,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@+id/chatLog_profileFromRowImageView"
         app:layout_constraintTop_toTopOf="@+id/chatLog_profileFromRowImageView"
-        app:srcCompat="@drawable/ic_image_black" />
+        app:srcCompat="@drawable/ic_baseline_image_24" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/chatLog_profileFromRowImageView"

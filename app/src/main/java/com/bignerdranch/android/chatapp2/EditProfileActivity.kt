@@ -105,8 +105,10 @@ class EditProfileActivity : AppCompatActivity() {
 
         db.reference.updateChildren(updates).addOnSuccessListener {
             Toast.makeText(this, "Successfully saved data", Toast.LENGTH_LONG).show()
+
+            finish()
         }.addOnFailureListener {
-            Toast.makeText(this, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@EditProfileActivity, "Failed to save data: ${it.message}", Toast.LENGTH_LONG).show()
         }
 
     }
