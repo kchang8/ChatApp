@@ -19,6 +19,21 @@
         app:layout_constraintStart_toEndOf="@+id/chatLog_profileFromRowImageView"
         app:layout_constraintTop_toTopOf="@+id/chatLog_profileFromRowImageView" />
 
+    <ImageView
+        android:id="@+id/chatLog_imageFromRowImageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:maxWidth="250dp"
+        android:padding="16dp"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_image_24"
+        app:layout_constraintStart_toEndOf="@+id/chatLog_profileFromRowImageView"
+        app:layout_constraintTop_toTopOf="@+id/chatLog_profileFromRowImageView" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/chatLog_profileFromRowImageView"
         android:layout_width="50dp"

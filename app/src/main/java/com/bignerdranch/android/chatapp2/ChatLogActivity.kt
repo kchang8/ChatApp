@@ -1,6 +1,8 @@
 package com.bignerdranch.android.chatapp2
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,12 +16,15 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.android.synthetic.main.activity_chat_log.*
 import kotlinx.android.synthetic.main.activity_chat_log.view.*
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 
 class ChatLogActivity : AppCompatActivity() {
+    var selectedPhotoUri: Uri? = null
 
     val db = FirebaseDatabase.getInstance()
     val auth = FirebaseAuth.getInstance()
@@ -30,15 +35,20 @@ class ChatLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
+        //checks if the back button is clicked
         chatLog_backButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 
-//        val username = intent.getStringExtra(NewMessageActivity.USER_KEY)
-//        if (username != null) {
-//            Log.d("Chat Log Username", username)
-//        }
+        // checks if the image icon is clicked
+        chatLog_addImageIcon.setOnClickListener {
+            Log.d("ChatLog", "Showing photo selector")
+
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+        }
 
         toUser = intent.getParcelableExtra(NewMessageActivity.USER_KEY)
 
@@ -57,28 +67,30 @@ class ChatLogActivity : AppCompatActivity() {
                 if (message?.getFromUid() == auth.uid.toString()){
                     val currentUser = HomeActivity.currentUser
                     adapter.add(ChatToItem(message.getText(), currentUser!!))
+
                 }
                 else {
                     adapter.add(ChatFromItem(message!!.getText(), toUser!!))
+
                 }
 
                 chatLog_recyclerView.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
 
@@ -124,6 +136,21 @@ class ChatLogActivity : AppCompatActivity() {
                 .child(fromUid)
         latestMessageToRef.setValue(message)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
+            Log.d(ADD_POST_TAG, "Photo was selected to be sent")
+
+            selectedPhotoUri = data.data
+
+            Log.d("ChatLog", selectedPhotoUri.toString())
+
+            chatLog_addImageIcon.setImageURI(selectedPhotoUri)
+
+        }
+    }
 }
 
 class ChatFromItem(message: String, user: Users?) : Item<ViewHolder>() {
@@ -165,3 +192,4 @@ class ChatToItem(message: String, user: Users?): Item<ViewHolder>() {
         return R.layout.chat_to_row
     }
 }
+

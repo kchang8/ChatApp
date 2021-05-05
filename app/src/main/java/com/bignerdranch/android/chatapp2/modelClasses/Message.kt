@@ -1,10 +1,14 @@
 package com.bignerdranch.android.chatapp2.modelClasses
 
+import com.google.firebase.messaging.Constants
+
 class Message {
     private var id: String = ""
     private var text: String = ""
     private var fromUid: String = ""
     private var toUid: String = ""
+    private var imageUrl: String = ""
+    //private var type: String = ""
 
     constructor()
 
@@ -13,6 +17,7 @@ class Message {
         this.text = text
         this.fromUid = fromUid
         this.toUid = toUid
+        //this.type = type
     }
     fun getId(): String{
         return id
@@ -45,4 +50,6 @@ class Message {
     fun setToUid(toUid: String){
         this.toUid = toUid
     }
+
+
 }
