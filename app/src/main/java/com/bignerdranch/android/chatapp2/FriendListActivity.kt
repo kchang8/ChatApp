@@ -5,77 +5,63 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_friend_list.*
 import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.android.synthetic.main.feed_list_item.view.*
+import kotlinx.android.synthetic.main.friend_list_item.view.*
 import kotlinx.android.synthetic.main.new_message_user_item.view.*
 
-class NewMessageActivity : AppCompatActivity() {
+class FriendListActivity : AppCompatActivity() {
 
-    lateinit var db: FirebaseDatabase
+    private var recyclerView: RecyclerView? = null
+
     lateinit var auth: FirebaseAuth
-    lateinit var fireUser: FirebaseUser
+    lateinit var db: FirebaseDatabase
+
+    val adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_message)
+        setContentView(R.layout.activity_friend_list)
 
         db = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 
-
-        newMessage_recyclerView.layoutManager = LinearLayoutManager(this)
-
-        fetchUsers()
-
-        newMessage_backButton.setOnClickListener {
+        // checks if the back button is pressed
+        friendList_backButton.setOnClickListener {
             finish()
         }
 
+        fetchFriends()
     }
 
-    companion object{
-        val USER_KEY = "USER_KEY"
-    }
-
-    private fun fetchUsers() {
+    private fun fetchFriends() {
         val ref = db.reference.child("users").child(auth.uid.toString()).child("friendList")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                val adapter = GroupAdapter<ViewHolder>()
 
                 p0.children.forEach {
-                    Log.d("NewMessage", it.toString())
+                    Log.d("FriendList", it.toString())
                     if (it.value == true){
                         val userRef = db.reference.child("users").child(it.key.toString()).get().addOnSuccessListener {
                             val user = it.getValue(Users::class.java)
-                            Log.d("NewMessage", user.toString())
+                            Log.d("FriendList", user.toString())
                             if (user != null){
-                                adapter.add(UserItem(user))
+                                adapter.add(FriendListRow(user))
                             }
                         }
                     }
                 }
 
-                adapter.setOnItemClickListener { item, view ->
-
-                    val userItem = item as UserItem
-
-                    val intent = Intent(view.context, ChatLogActivity::class.java)
-//                    intent.putExtra(USER_KEY, userItem.user.getUsername())
-                    intent.putExtra(USER_KEY, userItem.user)
-                    startActivity(intent)
-
-                    finish()
-                }
-
-                newMessage_recyclerView.adapter = adapter
+                friendList_recyclerView.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -83,18 +69,21 @@ class NewMessageActivity : AppCompatActivity() {
             }
         })
     }
+
 }
 
-class UserItem(val user: Users): Item<ViewHolder>() {
+class FriendListRow(val user: Users): Item<ViewHolder>() {
     private var refUsers: DatabaseReference? = null
 
     lateinit var db: FirebaseDatabase
+    lateinit var auth: FirebaseAuth
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         db = FirebaseDatabase.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         // get user's usernames to display
-        viewHolder.itemView.newMessage_username.text = user.username
+        viewHolder.itemView.friendList_username.text = user.username
 
         // get user's profile pics to display
         refUsers = db.reference.child("users").child(user.uid!!)
@@ -105,18 +94,29 @@ class UserItem(val user: Users): Item<ViewHolder>() {
                 {
                     val imageUrl = snapshot.child("profileImageUrl").getValue().toString()
 
-                    Picasso.get().load(imageUrl).into(viewHolder.itemView.newMessage_profileImage)
+                    Picasso.get().load(imageUrl).into(viewHolder.itemView.friendList_profileImage)
                 }
             }
+
 
             override fun onCancelled(error: DatabaseError) {
 
             }
         })
+
+        //remove friend button pressed
+        viewHolder.itemView.friendList_removeButton.setOnClickListener {
+            db.reference.child("users")
+                .child(auth.uid.toString())
+                .child("friendList")
+                .child(user.uid)
+                .removeValue()
+        }
+
+
     }
 
     override fun getLayout(): Int {
-        return R.layout.new_message_user_item
+        return R.layout.friend_list_item
     }
 }
-

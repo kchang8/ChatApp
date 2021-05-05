@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bignerdranch.android.chatapp2.ChatLogActivity
 import com.bignerdranch.android.chatapp2.EditProfileActivity
+import com.bignerdranch.android.chatapp2.FriendListActivity
 import com.bignerdranch.android.chatapp2.R
 import com.bignerdranch.android.chatapp2.modelClasses.Users
 import com.google.firebase.auth.FirebaseAuth
@@ -48,6 +49,15 @@ class ProfileFragment : Fragment() {
 
             // switches to the edit profile activity page
             val intent = Intent(this.context, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        // sets an on click listener on the view friend list button
+        view.profile_friendRequestListButton.setOnClickListener {
+            Log.d("ProfileFragment", "view friend list button clicked")
+
+            // switches to the friend list activity page
+            val intent = Intent(this.context, FriendListActivity::class.java)
             startActivity(intent)
         }
 

@@ -52,11 +52,6 @@ class FeedFragment : Fragment() {
         db = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 
-//        view.feed_addPostFab.setOnClickListener {
-//            val intent = Intent(activity, AddPostActivity::class.java)
-//            startActivity(intent)
-//        }
-
         recyclerView = view.findViewById(R.id.feed_recyclerView)
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = LinearLayoutManager(context)
