@@ -47,6 +47,7 @@ class FriendListActivity : AppCompatActivity() {
         val ref = db.reference.child("users").child(auth.uid.toString()).child("friendList")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
+                adapter.clear()
 
                 p0.children.forEach {
                     Log.d("FriendList", it.toString())
@@ -106,10 +107,18 @@ class FriendListRow(val user: Users): Item<ViewHolder>() {
 
         //remove friend button pressed
         viewHolder.itemView.friendList_removeButton.setOnClickListener {
+            // remove friend from your friend list
             db.reference.child("users")
                 .child(auth.uid.toString())
                 .child("friendList")
                 .child(user.uid)
+                .removeValue()
+
+            //now we do the same for the user that you declined
+            db.reference.child("users")
+                .child(user.uid)
+                .child("friendList")
+                .child(auth.uid.toString())
                 .removeValue()
         }
 

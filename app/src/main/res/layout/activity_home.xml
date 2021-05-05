@@ -1,81 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
+        android:id="@+id/home_linearLayoutBar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/teal_200"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/home_profilePicture"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_baseline_person_24"
+        app:layout_constraintBottom_toBottomOf="@+id/home_linearLayoutBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/home_username"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="username"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/home_linearLayoutBar"
+        app:layout_constraintStart_toEndOf="@+id/home_profilePicture"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/home_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Sign Out"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/home_linearLayoutBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home_username"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_linearLayoutBar"
+        app:tabBackground="@color/teal_200"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#000000"
+        app:tabInlineLabel="true"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/CustomTabStyle"
+        app:tabTextColor="@android:color/white">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/teal_200" >
+    </com.google.android.material.tabs.TabLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/home_profilePicture"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:tint="@android:color/white"/>
-
-
-            <TextView
-                android:id="@+id/home_username"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:text="username"
-                android:layout_marginLeft="25dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="20sp">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/home_sign_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:layout_marginLeft="25dp">
-            </TextView>
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabBackground="@color/teal_200"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#000000"
-            app:tabInlineLabel="true"
-            app:tabMode="fixed"
-            app:tabTextAppearance="@style/CustomTabStyle"
-            app:tabTextColor="@android:color/white">
-
-        </com.google.android.material.tabs.TabLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appBarLayout" />
+        android:layout_below="@+id/tabs"
+        android:layout_marginTop="102dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs"
+        app:layout_constraintVertical_bias="1.0" />
 
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
