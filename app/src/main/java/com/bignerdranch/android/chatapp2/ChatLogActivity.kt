@@ -68,7 +68,7 @@ class ChatLogActivity : AppCompatActivity() {
 
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            startActivityForResult(intent, 0)
+            startActivityForResult(intent, 1)
         }
 
         // makes the chat log text view the user name of the person you are chatting with
@@ -146,36 +146,40 @@ class ChatLogActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
-            Log.d(TAG, "Photo was selected")
+            Log.d("ChatLogActivity", "Photo was selected")
 
             selectedPhotoUri = data.data
+            Log.d("ChatLogActivity", selectedPhotoUri.toString())
 
             uploadImageToFirebaseStorage()
         }
     }
 
     private fun uploadImageToFirebaseStorage() {
-        if (selectedPhotoUri == null) return
+        if (selectedPhotoUri == null){
+            Log.d("ChatLogActivity", "selecetedPhotoUri was null")
+            return
+        }
 
         val filename = UUID.randomUUID().toString()
         val ref = storage.getReference("/images/$filename")
 
         ref.putFile(selectedPhotoUri!!)
                 .addOnSuccessListener {
-                    Log.d("Register", "Successfully uploaded image: ${it.metadata?.path}")
+                    Log.d("ChatLogActivity", "Successfully uploaded image: ${it.metadata?.path}")
 
                     ref.downloadUrl.addOnSuccessListener {
-                        Log.d(TAG, "File location: $it")
-
-                        val message = selectedPhotoUri.toString()
+                        Log.d("ChatLogActivity", "File location: $it")
 
                         val type = "image"
+
+                        val message = it.toString()
 
                         sendMessage(message, auth.uid.toString(), toUser!!.uid, type)
                     }
                 }
                 .addOnFailureListener {
-                    Log.d(TAG, "Failed to upload image")
+                    Log.d("ChatLogActivity", "Failed to upload image")
                 }
     }
 
