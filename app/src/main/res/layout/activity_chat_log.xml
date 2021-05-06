@@ -40,21 +40,24 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/image_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@null"
-        app:srcCompat="@drawable/ic_image_black"
+    <ImageView
+        android:id="@+id/chatLog_imageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/edittext_chat_log"
-        app:layout_constraintStart_toStartOf="@+id/chatLog_recyclerView">
+        app:layout_constraintEnd_toStartOf="@+id/edittext_chat_log"
+        app:layout_constraintStart_toStartOf="@+id/chatLog_recyclerView"
+        app:layout_constraintTop_toTopOf="@+id/edittext_chat_log"
+        app:srcCompat="@drawable/ic_baseline_image_24">
 
-    </ImageButton>
+    </ImageView>
 
     <EditText
         android:id="@+id/edittext_chat_log"
         android:layout_width="262dp"
         android:layout_height="49dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
         android:ems="10"
@@ -62,7 +65,8 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_button_chat_log"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/chatLog_imageButton" />
 
     <Button
         android:id="@+id/send_button_chat_log"
