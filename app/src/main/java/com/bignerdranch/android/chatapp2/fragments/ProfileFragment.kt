@@ -64,31 +64,35 @@ class ProfileFragment : Fragment() {
         firebaseUser = auth.currentUser
         refUsers = db.reference.child("users").child(firebaseUser!!.uid)
 
-        refUsers!!.get().addOnSuccessListener {
-            // gets profile image to display
-            val imageUrl = it.child("profileImageUrl").value.toString()
-            Picasso.get().load(imageUrl).into(profile_profileImage)
-
-            val user: Users? = it.getValue(Users::class.java)
-
-            // gets the big username to display
-            profile_username.text = user!!.username
-
-            // gets the small text field username to display
-            profile_username2.text = user!!.username
-        }
-
         refUsers!!.addValueEventListener(object: ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                // displays how many friends the user has
-                var friendCount : Int = 0
-                snapshot.child("friendList").children.forEach {
-                    if (it.value == true){
-                        friendCount++
-                    }
+                if (profile_profileImage != null){
+                    // gets profile image to display
+                    val imageUrl = snapshot.child("profileImageUrl").value.toString()
+                    Picasso.get().load(imageUrl).into(profile_profileImage)
                 }
-                profile_friends.text = friendCount.toString()
+
+                val user: Users? = snapshot.getValue(Users::class.java)
+
+                if (profile_username != null && profile_username2 != null){
+                    // gets the big username to display
+                    profile_username.text = user!!.username
+
+                    // gets the small text field username to display
+                    profile_username2.text = user!!.username
+                }
+
+                if (profile_friends != null){
+                    // displays how many friends the user has
+                    var friendCount : Int = 0
+                    snapshot.child("friendList").children.forEach {
+                        if (it.value == true){
+                            friendCount++
+                        }
+                    }
+                    profile_friends.text = friendCount.toString()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
